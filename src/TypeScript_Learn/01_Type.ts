@@ -24,3 +24,24 @@ function f ():never{
 function g() :void{
 
 }
+//object类型，可以存储非基本类型,如对象
+let h: object
+h = {}
+//Object类型，可以存储一切能调用Object方法的类型(存不了null和object)
+let i: Object
+
+//在实际开发中，使用ts声明对象通常采取以下方式
+//在属性名后跟?表示这个是可选项
+let j: {
+    name: string
+    age?: number
+}
+j = {name: "Lucky", age: 1}
+j = {name: "Lucky"}
+//可以使用索引签名来增加属性
+let k: {
+    name: string
+    //表示的意思是：有一个字符串类型的索引，存储值为string，key可以是任何字符，常用key或index
+    [key: string]: string
+}
+k = {name: "Lucky", hobby: "game", gender: "male"}
