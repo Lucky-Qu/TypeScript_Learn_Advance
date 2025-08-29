@@ -16,3 +16,11 @@ if (typeof e === "string"){
 b = e as string
 //断言的另一种写法
 b = <string> e
+//never类型，一般用于函数的返回值，表示这个函数不能返回任何值，即不能正常调用结束（正常调用结束会返回undefined）
+function f ():never{
+    throw Error()
+}
+//void类型，一般用于函数的返回值，返回值为空即不返回值，undefined是被接受的空
+function g() :void{
+
+}
