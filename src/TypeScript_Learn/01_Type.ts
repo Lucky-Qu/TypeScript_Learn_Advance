@@ -45,3 +45,135 @@ let k: {
     [key: string]: string
 }
 k = {name: "Lucky", hobby: "game", gender: "male"}
+
+// ts中可以使用 => 来规定函数的接受值与返回值，如
+let l: (n1: number, n2: number) => number
+//上面规定了l是一个接受两个number返回一个number
+l = function (a: number, b: number){
+    return a + b
+}
+//ts中声明数组的方式如下
+let m: Array<number>
+let n: string[]
+
+//元组是一种特殊的数组，它规定了存储固定数量的元素，并且每个元素类型是已知的且可以不同
+//?表示可选项，...类型[]表示任意多个
+let o: [string, number, ...string[]]
+o = ["asd",12]
+o = ["asd",12,"asd","ad"]
+
+//枚举可以定义一组常量，增强代码可读性，易维护
+//枚举命名习惯首字母大写
+enum Direction {
+    Up,
+    Right,
+    Down,
+    Left
+}
+let p: (direction:Direction) => string
+p = function (a){
+    if (a == Direction.Up){
+        return "上"
+    }
+    if (a == Direction.Right){
+        return "右"
+    }
+    if (a == Direction.Down){
+        return "下"
+    }
+    if (a == Direction.Left){
+        return "左"
+    }
+    return "未知"
+}
+p(Direction.Up)
+
+//定义枚举时还可以定义常量枚举，避免生成js代码时生成冗余代码
+const enum q {
+    West,
+    East,
+    North,
+    South
+}
+
+//允许使用type来定义一种自定义的类型，使用管道符｜来构成联合数据类型
+type Status = number | string
+function r(data: Status){
+    console.log(data)
+}
+r(123)
+r("abc")
+//上面在规定函数接受返回值时void严格执行，但在使用类型定义来声明时，不会严格要求返回值为void
+
+//类和继承 in ts
+class Person {
+    name: string
+    age: number
+    constructor(name: string, age: number) {
+        this.name = name
+        this.age = age
+    }
+    speak():string{
+        return `我是${this.name}`
+    }
+}
+class Student extends Person {
+    grade: number
+    constructor(name: string,age:number, grade: number) {
+        super(name, age);
+        this.grade = grade;
+    }
+    override speak(): string {
+        return `我是${this.name}，我是学生`
+    }
+}
+//ts中具有属性修饰符
+//public 可被类内部，子类，类外部访问
+//protect 可被类内部，子类访问
+//private 可被类内部访问
+//readonly 属性不可修改
+
+//上面的可以进行简写
+class PersonSimple {
+    constructor(public name: string, public age: number) {}
+    speak(){
+        return `我是${this.name}`
+    }
+}
+
+//ts中可以定义抽象类，来便于其派生类继承
+abstract class Box {
+    constructor(public weight: number) {}
+    abstract cal():number
+}
+class GoldBox extends Box {
+    cal(): number {
+        return 8888;
+    }
+}
+
+//ts中可以定义接口，不能包含任何实现
+interface animalInterface {
+    name: string
+    age: number
+    speak: () => void
+}
+
+class dog implements animalInterface{
+    name: string
+    age: number
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age
+    }
+    speak(){}
+}
+//ts中的接口可以作为类型使用
+//泛型
+//泛型允许在定义时使用类型参数表示未指定的类型，让一段代码适用于多个类型，同时仍然保持类型的安全性
+//<T>,T可以是任何，常用T（Type类型）
+function s<T>(data: T){
+    console.log(data)
+}
+s<number>(123)
+s<string>("abc")
